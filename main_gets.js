@@ -97,10 +97,11 @@ function divd(type) {
   }else
   {
     windows.style.color = "white";
-    windows.innerHTML += ("MY PROJECTS");
+    //windows.innerHTML += ("MY PROJECTS");
 
 
     var new_componete = document.createElement('div');
+    new_componete.id = windows.id;
     new_componete.style.backgroundSize = "cover";
     new_componete.style.width = "30px";
     new_componete.style.height = "30px";
@@ -118,6 +119,7 @@ function divd(type) {
     windows.appendChild(new_componete);
 
     var new_componete = document.createElement('div');
+    new_componete.id = windows.id;
     new_componete.style.backgroundSize = "cover";
     new_componete.style.width = "30px";
     new_componete.style.height = "30px";
@@ -131,10 +133,11 @@ function divd(type) {
     {
       window.open("https://github.com/SrShadowy/MemoryScanner", '_blank').focus();
     }
-    new_componete.innerHTML += "<span>memory Scanner</span>";
+    //new_componete.innerHTML += "<span>memory Scanner</span>";
     windows.appendChild(new_componete);
 
     var new_componete = document.createElement('div');
+    new_componete.id = windows.id;
     new_componete.style.backgroundSize = "cover";
     new_componete.style.width = "30px";
     new_componete.style.height = "30px";
@@ -148,7 +151,7 @@ function divd(type) {
     {
       window.open("https://github.com/SrShadowy/AppLauncher", '_blank').focus();
     }
-    new_componete.innerHTML += "<span style='display:flex; top:30px'>Applauncher</span>";
+    //new_componete.innerHTML += "<span style='display:flex; top:30px'>Applauncher</span>";
     windows.appendChild(new_componete);
 
 
