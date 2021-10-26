@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main_gets.js"></script>
-    <title>I'm Not VM.js</title>
     <link rel="icon" href="./icons/logoOS.png">
-
+    <title>I'm Not VM.js</title>
 </head>
 
 <body style="background-color:rgb(22, 24, 26)">
@@ -43,6 +42,36 @@
     </div>
  </div>
 
+ <!-- PROTOTIPOS -->
+
+ <div id="calc" style="visibility: hidden;">
+  <div>
+  <input type="text" id="display" value="0">
+
+  </div>
+  <div>
+    <br>
+    <input type="button" onclick="append_digito(this)" id="signal"  class="keys"  value="+">
+    <input type="button" onclick="append_digito(this)" id="signal"  class="keys"  value="-">
+    <input type="button" onclick="append_digito(this)" id="signal"  class="keys"  value="*">
+    <input type="button" onclick="append_digito(this)" id="signal"  class="keys"  value="/">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="9">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="8">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="7">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="6">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="5">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="4">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="3">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="2">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="1">
+    <input type="button" onclick="append_digito(this)" id="digital" class="keys"  value="0">
+    <input type="button" onclick="append_digito(this)" id="signal"  class="keys"  value=".">
+    <input type="button" onclick="calclu()" id="signal"  class="keys"  value="=">
+    
+  </div>
+ </div>
+ <!-- PROTOTIPOS -->
+
 </body>
 
 <footer  style="color:rgb(90, 62, 216)">
@@ -54,6 +83,27 @@
         bottom: 0;
     }
 
+    #calc{
+      margin: 15px;
+      width: 220px;
+      height: 300px;
+      border: solid 1px;
+      padding: 5px;
+    }
+    .keys{
+      width: 50px;
+      height: 50px;
+      padding: 0px;
+      float: left;
+    }
+    #signal{
+      background-color: orange;
+    }
+    #digital{
+      background-color: cyan;
+    }
+
+    
   </style>
 
   
