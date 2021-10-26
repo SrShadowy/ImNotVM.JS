@@ -64,7 +64,7 @@ function append_digito(e)
   }
 }
 
-function calclu()
+function calclu(e)
 {
   let calc_display = document.getElementById('Display'+e.name);
   if(calc_display != undefined)
