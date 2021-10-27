@@ -164,6 +164,24 @@ function divd(type) {
         windows.appendChild(new_componete);
         type_img = 1;
       break;
+
+      case "topgear":
+        windows.style.overflow = "auto";
+        //windows.style.overflowX = "auto";
+        var new_componete = document.createElement('iframe');
+        new_componete.style.top = "25px";
+        new_componete.style.width = "inherit";
+        new_componete.style.height = "inherit";
+        //new_componete.style.overflow = 'auto';
+    
+        new_componete.src = "https://www.retrogames.cc/embed/23881-top-gear-usa.html";
+
+        windows.style.width = "650px";
+        windows.style.height = "500px";
+
+        windows.appendChild(new_componete);
+        type_img = 1;
+      break;
     }
 
   }else
@@ -443,6 +461,28 @@ function init() {
       }
 
       iniciar.appendChild(btn);
+      
+      iniciar.appendChild(btn);
+      var btn = document.createElement('input');
+      btn.id = iniciar.id;
+      btn.type = "button"
+      btn.style.left = "0px";
+      btn.style.top = "90px";
+      btn.style.width = "200px";
+      btn.style.height = "30px";
+      //btn.name = "btn_IFRAME";
+      btn.value = "Top Gear (USA) :)";
+      btn.style.color = "red";
+      btn.style.backgroundColor = "blue";
+      btn.onclick = function (e) {
+        divd("topgear");
+        //window.open("https://github.com/SrShadowy", '_blank');
+        var elem = document.getElementById("iniciar");
+        elem.parentNode.removeChild(elem);
+      }
+
+      iniciar.appendChild(btn);
+      
 
       main.appendChild(iniciar);
     } else {
