@@ -6,20 +6,73 @@ let context;
 
 // POSSIVEIS GLOBAIS
 let win_size = [0, 0];
-var mpos = [0, 0];
-var offset = [0, 0];
+let mpos = [0, 0];
+let offset = [0, 0];
 let randomColor;
+let radios = 0;
 
 // DIVS MOVE
 let ddh;
 let div_dinamic;
-let win_id;
+let win_id = 3;
 let mdown;
 let main;
 let b_i;
 let b_t;
 let btn_i;
+let islc, islh;
 
+
+// DESKTOP FUNCIONS
+let if_clicked_in_empty = 0;
+function item_clicked(element)
+{
+  if(islc != undefined &&  element == undefined)
+  {
+    islc.style.backgroundColor = "#00000000";
+    islc.style.border = "none";
+    islc = undefined;
+    return;
+  }
+
+  if(islc == undefined) islc = element
+
+  if(islc != element)
+  {
+    islc.style.backgroundColor = "#00000000";
+    islc.style.border = "none";
+  }    
+  if(element != undefined)
+  {
+    element.style.backgroundColor = "#03a9f4";
+    element.style.border = "solid white 1px";
+  }
+
+  islc = element;
+}
+function item_houver(element)
+{
+  if(islh == undefined)
+  islh = element
+
+  else if(islh != element)
+  {
+    islh.style.backgroundColor = "#00000000";
+    if(islh.style.borderTopStyle == "solid")
+    islh.style.backgroundColor = "#31c9eb80";
+    
+  }
+  if(element != undefined)
+  {
+    element.style.backgroundColor = "#31c9eb80";
+    if(element.style.borderTopStyle == "solid")
+      element.style.backgroundColor = "#03a9f4";
+
+  }
+  islh = element;
+}
+
+// OVER
 
 
 let icons = ["folder.png", "web-browser-hd.png", "calc.png", "unknow.png", "logoOS.png"];
@@ -75,10 +128,58 @@ function calclu(e)
 
 }
 
+function folder_itens(elemento, name, icon)
+{
+  if(elemento == undefined)
+  return elemento;
+
+  elemento.style.position = "relative";
+  elemento.style.width = "50px";
+  elemento.style.border = "solid 1px";
+  elemento.style.fontSize = "smaller";
+  elemento.style.textAlign = "Center";
+  elemento.style.float = "bottom";
+  elemento.style.padding = "1px";
+  elemento.style.margin = "1px";
+  elemento.value = name;
+    x = document.createElement('img');
+    x.src = icon;
+    x.height = "40";
+  elemento.appendChild(x);
+  elemento.style.overflowWrap = "Break-Word";
+  elemento.style.border = "none";
+  elemento.innerHTML += "<span>" + name + "</span>";
+
+  elemento.onmouseover = function()
+  {
+    if_clicked_in_empty = 1;
+    item_houver(this);
+  }
+  
+  elemento.onmouseout = function(){
+    if_clicked_in_empty = 0;
+    item_houver(undefined);
+  }
+  elemento.onclick = function()
+  {
+    if_clicked_in_empty = 1;
+    item_clicked(this);
+  }
+
+
+  return elemento;
+}
+
+function bk()
+{
+ console.log(("'"+ document.getElementById('cbkg').value +"'"));
+
+  if(document.getElementById('cbkg') != undefined)
+  main.style.backgroundImage = ("url('"+ document.getElementById('cbkg').value +"')");
+}
 
 
 let last_top_div;
-
 function divd(type) {
 
   var type_img = 0;
@@ -95,7 +196,16 @@ function divd(type) {
   windows.style.resize = 'both';
   windows.style.overflow = 'auto';
   windows.style.visibility = 'visible';
+  windows.style.borderRadius = radios + "%";
 
+  windows.onmouseover = function()
+  {
+    if_clicked_in_empty = 1;
+  }
+  windows.onmouseout = function()
+  {
+    if_clicked_in_empty = 0;
+  }
 
   var close = document.createElement('button');
   close.id = windows.id;
@@ -182,6 +292,28 @@ function divd(type) {
         windows.appendChild(new_componete);
         type_img = 1;
       break;
+
+      case "cbackground":
+        windows.style.overflow = "auto";
+        windows.style.width = "350px";
+        windows.style.height = "200px";
+        new_componete = document.createElement('div');
+        new_componete.style.padding = "10px";
+        new_componete.style.color = "white";
+        new_componete.innerHTML = "<br><span>URL IMG</span><input id='cbkg' value='./icons/background1.jpg'><input type='button' onclick='bk()' value='change'><br><span>Radius Windows</span>";
+        x = document.createElement("input");
+        x.type = "number";
+        x.value = radios;
+        x.onclick = function(){
+          radios = x.value;
+        }
+     
+
+        new_componete.appendChild(x);
+        windows.appendChild(new_componete);
+        type_img = 3;
+      break;
+
     }
 
   }else
@@ -189,64 +321,40 @@ function divd(type) {
     type_img = 0;
     windows.style.color = "white";
     //windows.innerHTML += ("MY PROJECTS");
-
-
-    var new_componete = document.createElement('div');
+    let new_componete = document.createElement('div');
     new_componete.id = windows.id;
-    new_componete.style.backgroundSize = "cover";
-    new_componete.style.width = "30px";
-    new_componete.style.height = "30px";
-    new_componete.style.float = "bottom";
-    new_componete.style.position = "relative";
-    new_componete.style.padding = "10px";
-    new_componete.style.backgroundImage = "url('./icons/web-browser-hd.png')";
-    new_componete.style.textAlign = "center";
-    new_componete.value = "NAVEGADOR";
-    new_componete.onclick = function()
+    new_componete = folder_itens(new_componete, "GIT", "./icons/web-browser-hd.png");
+
+    new_componete.ondblclick = function()
     {
       window.open("https://srshadowy.github.io/", '_blank').focus();
     }
-    new_componete.innerHTML += "<span>My GIT</span>";
+
     windows.appendChild(new_componete);
 
-    var new_componete = document.createElement('div');
+    new_componete = document.createElement('div');
     new_componete.id = windows.id;
-    new_componete.style.backgroundSize = "cover";
-    new_componete.style.width = "30px";
-    new_componete.style.height = "30px";
+    new_componete = folder_itens(new_componete, "MemoryScanner", './icons/folder.png');
     new_componete.style.float = "left";
-    new_componete.style.position = "relative";
-    new_componete.style.padding = "10px";
-    new_componete.style.backgroundImage = "url('./icons/folder.png')";
-    new_componete.style.textAlign = "center";
-    new_componete.value = "FOLDER";
-    new_componete.onclick = function()
+  
+    new_componete.ondblclick = function()
     {
       window.open("https://github.com/SrShadowy/MemoryScanner", '_blank').focus();
     }
     //new_componete.innerHTML += "<span>memory Scanner</span>";
     windows.appendChild(new_componete);
 
-    var new_componete = document.createElement('div');
+    new_componete = document.createElement('div');
     new_componete.id = windows.id;
-    new_componete.style.backgroundSize = "cover";
-    new_componete.style.width = "30px";
-    new_componete.style.height = "30px";
+    new_componete = folder_itens(new_componete, "AppLauncher", './icons/folder.png');
     new_componete.style.float = "left";
-    new_componete.style.position = "relative";
-    new_componete.style.padding = "10px";
-    new_componete.style.backgroundImage = "url('./icons/folder.png')";
-    new_componete.style.textAlign = "center";
-    new_componete.value = "NAVEGADOR";
-    new_componete.onclick = function()
+    
+    new_componete.ondblclick = function()
     {
       window.open("https://github.com/SrShadowy/AppLauncher", '_blank').focus();
     }
     //new_componete.innerHTML += "<span style='display:flex; top:30px'>Applauncher</span>";
     windows.appendChild(new_componete);
-
-
-
     // site apresentação = https://srshadowy.github.io/
     // apresetação do memory scanner
     // Applauncher
@@ -328,6 +436,7 @@ function divd(type) {
       pos3 = e.clientX;
       pos4 = e.clientY;
       // set the element's new position:
+      //console.log(elmnt.offsetTop + " e " + pos2 + " contudo: " + elmnt.style.top );
       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     }
@@ -340,6 +449,86 @@ function divd(type) {
   }
 }
 
+function DesktopDrag(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  elmnt.onmousedown = dragMouseDown;
+  
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    //console.log(elmnt.style.top + " e " + pos2 + " contudo: " + elmnt.style.top );
+    elmnt.style.top =  (elmnt.style.top.slice(0,-2)  - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+function itemDesktop(element, icon, name, Left_start, Top_Start)
+{
+  if(element == undefined)
+    return element;
+
+  element.style.color     = "white";
+  element.style.float     = "bottom";
+  element.style.width     = "60px";
+  element.style.position  = "relative";
+  element.style.left      = Left_start;
+  element.style.top       = Top_Start;
+  element.style.textAlign = "center";
+  element.style.border    = "none";
+
+    new_div = document.createElement('img');
+    new_div.src = icon;
+    new_div.height = "50";
+    new_div.id = element.id+"Img";
+    new_div.alt= name;
+    
+    element.appendChild(new_div);
+    new_div = document.createElement('div');
+    title = document.createElement('span');
+    title.innerHTML = name;
+    new_div.appendChild(title);
+    element.appendChild(new_div);
+
+  element.onmouseover = function()
+  {
+    if_clicked_in_empty = 1;
+    item_houver(this);
+  }
+  
+  element.onmouseout = function(){
+    if_clicked_in_empty = 0;
+    item_houver(undefined);
+  }
+  element.onclick = function()
+  {
+    if_clicked_in_empty = 1;
+    item_clicked(this);
+    DesktopDrag(this);
+  }
+
+  return element;
+}
+
+
 function init() {
 
   main = document.getElementById('mother_of_divs');
@@ -347,7 +536,7 @@ function init() {
   b_t = document.getElementById('b.t');
   btn_i = document.getElementById('btn.i');
   ddh = document.getElementById('dd.h');
-
+  
   main.style.backgroundImage = "url('./icons/background1.jpg')";
   main.style.backgroundSize = "cover";
 
@@ -356,39 +545,44 @@ function init() {
   btn_i.style.backgroundImage = "url('./icons/logoOS.png')";
 
   var navegador = document.getElementById("browser");
-  navegador.style.backgroundSize = "cover";
-  navegador.style.width = "30px";
-  navegador.style.height = "30px";
-  navegador.style.float = "bottom";
-  navegador.style.position = "relative";
-  navegador.style.left = "20px";
-  navegador.style.top = "50px";
-  navegador.style.padding = "10px";
-  navegador.style.backgroundImage = "url('./icons/web-browser-hd.png')";
-  navegador.id = "browser";
-  navegador.value = "NAVEGADOR";
-  navegador.onclick = function()
+  navegador = itemDesktop(navegador, "./icons/web-browser-hd.png", "Browser", "20px", "50px");
+  navegador.ondblclick = function()
   {
     window.open("https://github.com/SrShadowy", '_blank').focus();
   }
 
-  var folder = document.getElementById("folder");
-  folder.style.backgroundSize = "cover";
-  folder.style.width = "30px";
-  folder.style.height = "30px";
-  folder.style.float = "bottom";
-  folder.style.position = "relative";
-  folder.style.left = "20px";
-  folder.style.top = "70px";
-  folder.style.padding = "10px";
-  folder.style.backgroundImage = "url('./icons/folder.png')";
-  folder.id = "folder";
-  folder.onclick = function()
+  folder = document.getElementById("folder");
+  folder = itemDesktop(folder, "./icons/folder.png", "folder", "20px", "70px");
+  folder.ondblclick = function()
   {
+    if_clicked_in_empty = 0;
     divd();
   }
 
+  main.onclick = function()
+  {
+    if(if_clicked_in_empty == 0)
+      item_clicked(undefined);
+  }
   main.addEventListener('contextmenu', event => event.preventDefault());
+  main.oncontextmenu = right;
+
+  function right(e)
+  {
+    e.preventDefault();
+    if(if_clicked_in_empty != 0)
+    return;
+
+    window.onclick = function()
+    {
+      cm_e = document.getElementById('context_menu_e').style.display = "none";
+    }
+
+    cm_e = document.getElementById('context_menu_e');
+    cm_e.style.display = "block";
+    cm_e.style.left = (e.pageX-40) + "px";
+    cm_e.style.top =  (e.pageY-30) + "px";
+  }
 
   btn_i.onclick = function (e) {
     if (document.getElementById("iniciar") == null) {
@@ -491,6 +685,6 @@ function init() {
     }
   }
 
+
   setInterval(dinamic_window, 1000 / 30);
 }
-
